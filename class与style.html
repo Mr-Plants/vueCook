@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .bold {
+      font-weight: bold;
+    }
+
+    .warn {
+      color: #30b5dd;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <!--  class支持和普通的css class属性共存-->
+  <p class="text" :class="{bold:isBold,warn:isWarn}">使用内联对象绑定</p>
+  <p class="text" :class="textClass">使用data数据中的对象整体绑定</p>
+  <p class="text" :class="computedClass">使用computed属性绑定</p>
+
+  <!--  不常用-->
+  <p class="text" :class="['bold','warn']">使用集合中提供的属性绑定</p>
+  <p class="text" :class="[isBold?'bod':'','warn']">集合中使用三目运算和字符串混写</p>
+  <p class="text" :class="[{bold:isBold},'warn']">集合中使用对象写法和字符串混写</p>
+
+  <!--  当在vue组件上设置class是，最终会被渲染在组件的跟元素上-->
+  <!--  <myComponent class="bold warn"></myComponent>-->
+
+  <!--  绑定内联样式 vue会自动为不同浏览器添加前缀-->
+  <p :style="{color:textColor,fontSize:fontSize+'px'}">使用内联样式对象控制</p>
+  <p :style="styleObj">使用data样式对象控制</p>
+  <p :style="computedStyle">使用computed属性返回的样式对象控制</p>
+  <!-- 后面的覆盖前面的相同属性 -->
+  <p :style="[styleObj,computedStyle]">使用集合添加多个属性对象控制</p>
+  <!---->
+  <div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }">从 2.3.0 起你可以为 style
+    绑定中的属性提供一个包含多个值的数组，常用于提供多个带前缀的值
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  <!--  创建实例，示例的数据-->
+  const app = new Vue({
+    el: "#app",
+    data: {
+      isBold: true,
+      isWarn: true,
+      textClass: {
+        bold: false,
+        warn: true
+      },
+      textColor: 'red',
+      fontSize: 30,
+      styleObj: {
+        color: 'yellow',
+        fontSize: '20px'
+      }
+    },
+    computed: {
+      computedClass() {
+        return {
+          bold: this.isBold,
+          warn: this.isWarn
+        }
+      },
+      computedStyle() {
+        return {
+          color: this.textColor,
+          fontSize: this.fontSize + 'px'
+        }
+      }
+    }
+
+  });
+  // tips：如果对data对象设置了Object.freeze()，那么将禁止修改对象
+</script>
+</body>
+</html>

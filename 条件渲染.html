@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <p v-if="seen">这块内容只会在指令的表达式返回 truthy 值的时候被渲染</p>
+  <!--  v-else可以和原来的标签不一样，如果v-else没有紧跟v-if或v-if-else则无效-->
+  <h1 v-else>Oh no 😢</h1>
+
+  <button @click="seen=!seen">切换seen</button>
+
+  <template>
+    <p>template仅仅是一个用来放置指令的容器，不会被解析为真实dom</p>
+  </template>
+
+  <p>使用v-if v-if-else v-else</p>
+  <ul>
+    <li v-if="type==='A'">A</li>
+    <li v-else-if="type==='B'">B</li>
+    <li v-else-if="type==='C'">C</li>
+    <li v-else>Not ABC</li>
+  </ul>
+  <label for="A">typeA：<input type="radio" name="type" v-model="type" value="A" id="A"></label>
+  <label for="B">typeB：<input type="radio" name="type" v-model="type" value="B" id="B"></label>
+  <label for="C">typeC：<input type="radio" name="type" v-model="type" value="C" id="C"></label>
+  <label for="D">typeD：<input type="radio" name="type" v-model="type" value="D" id="D"></label>
+
+  <p>v-if在切换时会尽可能的复用相同的元素，可以在元素上添加不同的key来完全独立渲染，没有添加key的元素依然会尝试复用</p>
+
+  <p v-show="seen">v-show仅仅是控制元素的display属性，不显示时依然存在于dom中，v-show不支持template语法，不支持v-else</p>
+
+  <p>一般来说，v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。</p>
+  <p>不推荐v-if和v-for同时使用，v-for具有更高的优先级</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  <!--  创建实例，示例的数据-->
+  const app = new Vue({
+    el: "#app",
+    data: {
+      seen: true,
+      typeArr: ['A', 'B', 'C', 'N'],
+      type: 'A'
+    },
+    computed: {
+      // type(){
+      //   return Math.random()*100
+      // }
+    }
+
+  });
+</script>
+</body>
+</html>
