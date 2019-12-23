@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <p>input,textarea默认使用input事件监听value，{{message}}</p>
+  <input type="text" v-model="message">
+  <p>lazy修饰符，使用change事件代替input事件。{{message2}}</p>
+  <input type="text" v-model.lazy="message2">
+
+  <p>使用number修饰符自动转换成数值，{{message3}}</p>
+  <input type="text" v-model.number="message3">
+
+  <p>使用trim修饰符自动去除首位空格，{{message4}}</p>
+  <input type="text" v-model.trim="message4">
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  <!--  创建实例，示例的数据-->
+  const app = new Vue({
+    el: "#app",
+    data: {
+      message: 'hello world!',
+      message2: 'hello world!',
+      message3: '',
+      message4: '',
+    }
+
+  });
+  // tips：如果对data对象设置了Object.freeze()，那么将禁止修改对象
+</script>
+</body>
+</html>

@@ -11,13 +11,14 @@
     <li v-for="item in items">
       姓名是：{{item.name}}
     </li>
-    <!--    第二个参数可以取到当前项的索引-->
-    <li v-for="(item,index) in items">
+    <!--    第二个参数可以取到当前项的索引，key值一般为简单类型，不应使用数组对象-->
+    <!--    为了给 Vue 一个提示，以便它能跟踪每个节点的身份，从而重用和重新排序现有元素，你需要为每项提供一个唯一 key 属性。-->
+    <li v-for="(item,index) in items" :key="index">
       姓名是：{{item.name}}
       序号是：{{index}}
     </li>
   </ul>
-
+  <!--仅仅是for in的代替，更像原生js的循环-->
   <p>使用for of循环数组</p>
   <ul>
     <li v-for="item of items">
@@ -29,6 +30,13 @@
   <ul>
     <li v-for="obj in _data">
       <pre>{{obj}}</pre>
+    </li>
+  </ul>
+  <!--  第二个参数可以取到键名-->
+  <p>展示对象键名及索引</p>
+  <ul>
+    <li v-for="(value,key,index) in _data">
+      <pre>{{index+'.'+key+':'+value}}</pre>
     </li>
   </ul>
 </div>
@@ -45,10 +53,24 @@
         {name: 'bar'},
         {name: 'baz'}
       ]
+    },
+    methods: {
+      setKeys() {
+        // 当要更改多个属性时，应该这样写
+        app.userProfile = Object.assign({}, app.userProfile, {
+          age: 27,
+          favoriteColor: 'Vue Green'
+        })
+      }
     }
-
   });
-  // tips：如果对data对象设置了Object.freeze()，那么将禁止修改对象
+  /**
+   * tips：对于直接使用item[2]={xxx}以及item.length=4，这两种方法都不是响应式的，所以无法触发dom更新
+   * 可以使用app.$set(app.items,index,newValue)设置，该方法是全局方法 Vue.set 的一个别名
+   * 此方法还可以给嵌套对象设置属性app.$set(object,key,value)
+   */
+
+
 </script>
 </body>
 </html>
