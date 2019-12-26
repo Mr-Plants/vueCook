@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <h2>当 prop 验证失败的时候，(开发环境构建版本的) Vue 将会产生一个控制台的警告。</h2>
+  <my-button btn-type="静态绑定prop"></my-button>
+  <my-button :btn-type="'动态绑定prop'"></my-button>
+  <p>给prop指定验证对象 type类型</p>
+  <my-box :isTrue="true" name="233"></my-box>
+  <p>isTrue非必填</p>
+  <my-box name="344"></my-box>
+  <p>单独设置校验函数</p>
+  <my-box name="zs" sex="未知"></my-box>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  Vue.component('my-button', {
+    props: ['btnType'],
+    template: `<button>{{btnType}}</button>`
+  })
+
+  Vue.component('my-box', {
+    props: {
+      isTrue: Boolean,
+      name: {
+        type: String,
+        required: true,
+        default: '姓名啦～'    // 如果没传会被默认值替换，类型错误不会被替换
+      },
+      sex: {
+        validator: (value) => {
+          return ['男', '女', '保密'].includes(value);
+        }
+      }
+    },
+    template: `<div>{{name}}</div>`
+  })
+
+
+  <!--  创建实例，示例的数据-->
+  const app = new Vue({
+    el: "#app",
+    data: {
+      message: 'hello world!'
+    }
+
+  });
+  // tips：如果对data对象设置了Object.freeze()，那么将禁止修改对象
+</script>
+</body>
+</html>
