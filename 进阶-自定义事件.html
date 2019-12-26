@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <p>v-model默认绑定的是value值和input事件，对于输入框以外的其他元素不好使，需要单独配置</p>
+  <my-checkbox v-model="check" @focus.native="onFocus"></my-checkbox>
+  {{check}}
+  <p>监听native事件</p>
+  <my-checkbox @focus.native="onFocus"></my-checkbox>
+
+  <my-input v-model="inputValue"></my-input>
+  {{inputValue}}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  Vue.component('my-checkbox', {
+    // 如果直接这样子写，会有问题
+    template: `<input type="checkbox" :checked="checked" @change="$emit('change',$event.target.checked)">`,
+    props: {
+      checked: Boolean
+    },
+    // 需要增加如下配置
+    model: {
+      prop: 'checked',
+      event: 'change'
+    }
+  });
+
+  Vue.component('my-input', {
+    template: `<label >my-input:
+                <input type="text" v-model="value">
+              </label>`,
+    props: ['value']
+  })
+
+  <!--  创建实例，示例的数据-->
+  const app = new Vue({
+    el: "#app",
+    data: {
+      message: 'hello world!',
+      check: true,
+      inputValue: ''
+    },
+    methods: {
+      onFocus() {
+        console.log('native事件focus')
+      }
+    }
+
+  });
+  // tips：如果对data对象设置了Object.freeze()，那么将禁止修改对象
+</script>
+</body>
+</html>

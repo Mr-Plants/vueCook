@@ -7,21 +7,37 @@
 <body>
 <div id="app">
   <h2>当 prop 验证失败的时候，(开发环境构建版本的) Vue 将会产生一个控制台的警告。</h2>
-  <my-button btn-type="静态绑定prop"></my-button>
+  <my-button btn-type="静态绑定prop" class="new-class" type="date"></my-button>
   <my-button :btn-type="'动态绑定prop'"></my-button>
   <p>给prop指定验证对象 type类型</p>
   <my-box :isTrue="true" name="233"></my-box>
   <p>isTrue非必填</p>
   <my-box name="344"></my-box>
   <p>单独设置校验函数</p>
-  <my-box name="zs" sex="未知"></my-box>
+  <my-box name="zs" sex="保密"></my-box>
+  <p>添加在组件外壳上的属性会被自动的添加到组件根元素上，对于大部分属性会直接覆盖，class和style会进行合并</p>
+  <p>想要禁用特性继承可以在注册组件时</p>
+  <base-input
+    v-model="username"
+    required
+    placeholder="Enter your username"
+  ></base-input>
+  {{username}}
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
   Vue.component('my-button', {
     props: ['btnType'],
-    template: `<button>{{btnType}}</button>`
+    template: `<input type="button" value="233">`,
+    // 设置阻止属性继承，选项不会影响 style 和 class 的绑定
+    inheritAttrs: false
+  });
+
+  Vue.component('base-input', {
+    template: `<input type="text" :value="value" @input="$emit('input',$event.target.value)">`,
+    props: ['value']
   })
 
   Vue.component('my-box', {
@@ -46,7 +62,8 @@
   const app = new Vue({
     el: "#app",
     data: {
-      message: 'hello world!'
+      message: 'hello world!',
+      username: ''
     }
 
   });
