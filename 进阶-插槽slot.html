@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <p>正常有内容的按钮，访问的是父级的作用域</p>
+  <my-button>
+    {{message}}
+  </my-button>
+
+  <p>如果想使用子组件的作用域，可以使用v-slot:slotname来绑定子组件可以访问的"数据对象"</p>
+  <my-button>
+    <template #default="data">
+      <!--      如果只有一个slot，也可以简写-->
+      <!--    <template v-slot="data">-->
+      {{data.message}}
+    </template>
+  </my-button>
+
+  <p>不传内容，展示后备内容</p>
+  <my-button></my-button>
+
+  <p>多个插槽可以使用template配合v-slot进行区分</p>
+  <base-layout>
+    <p>没有指定name的slot会被分配一个默认名称default，所有没有指定slot的模版都会被放到default slot中</p>
+
+    <template v-slot:header>
+      <p>i am header</p>
+    </template>
+    <template>
+      <p>i am body default</p>
+    </template>
+    <p>v-slot可以简写为#</p>
+    <template #footer>
+      <p>i am footer</p>
+    </template>
+  </base-layout>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  Vue.component('my-button', {
+    template: `<button>
+    <slot :data="_data">后备内容：{{message}}</slot>
+  </button>`,
+    data() {
+      return {
+        message: '子组件message',
+        name: 233
+      }
+    }
+  })
+
+  Vue.component('base-layout', {
+    template: `<div class="base-layout">
+    <header>
+      <slot name="header">备用header</slot>
+    </header>
+    <section>
+      <slot>备用body default</slot>
+    </section>
+    <footer>
+      <slot name="footer">备用footer</slot>
+    </footer>
+  </div>`
+  })
+
+  <!--  创建实例，示例的数据-->
+  const app = new Vue({
+    el: "#app",
+    data: {
+      message: '父组件message'
+    }
+
+  });
+  // tips：如果对data对象设置了Object.freeze()，那么将禁止修改对象
+</script>
+</body>
+</html>

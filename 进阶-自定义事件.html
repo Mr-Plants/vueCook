@@ -12,8 +12,13 @@
   <p>监听native事件</p>
   <my-checkbox @focus.native="onFocus"></my-checkbox>
 
+  <p>如果input并不是根元素，则直接在组件元素上添加的v-model不会生效，需要扩展这个组件的listener</p>
   <my-input v-model="inputValue"></my-input>
   {{inputValue}}
+
+  <p>直接在父组件上使用双向绑定是不好的，可以使用sync修饰符</p>
+  <p>sync修饰符和v-model一样，存在一些限制，比如只能绑定变量，不能使用表达式，不能使用对象字面量形式</p>
+  <my-input :value.sync="inputValue"></my-input>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -33,9 +38,25 @@
 
   Vue.component('my-input', {
     template: `<label >my-input:
-                <input type="text" v-model="value">
+                <input type="text" :value="value" v-on="mylisteners">
               </label>`,
-    props: ['value']
+    props: ['value'],
+    mounted() {
+      console.log(this.$listeners)
+    },
+    computed: {
+      mylisteners() {
+        const that = this;
+        return Object.assign({}, this.$listeners, {
+          input(event) {
+            that.$emit('input', event.target.value)
+          },
+          // focus(){
+          //
+          // }
+        })
+      }
+    }
   })
 
   <!--  创建实例，示例的数据-->
