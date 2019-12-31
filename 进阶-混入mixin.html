@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <p>mixin的data数据会以组件中的优先</p>
+  <p>name:{{name}}</p>
+  <p>如果组件中没有相关name属性，则遵循object assign的顺序，后面的覆盖前面的</p>
+  <p>age:{{age}}</p>
+  <p>混入的生命周期钩子都会按顺序执行</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  let myMixin = {
+    data: {
+      name: 'default_name',
+      age: 23
+    },
+    mounted() {
+      console.log(this.age)
+    }
+  };
+  let myMixin2 = {
+    data: {
+      name: 'default_name2'
+    },
+    mounted() {
+      console.log(this.name)
+    }
+  };
+
+  <!--  创建实例，示例的数据-->
+  const app = new Vue({
+    el: "#app",
+    mixins: [myMixin, myMixin2],
+    data: {
+      message: 'hello world!',
+      name: 'foo'
+    }
+
+  });
+  // Vue.config.optionMergeStrategies.data = function (old, newVal) {
+  //   console.log(old)
+  //   console.log(newVal)
+  // }
+  // tips：如果对data对象设置了Object.freeze()，那么将禁止修改对象
+</script>
+</body>
+</html>
