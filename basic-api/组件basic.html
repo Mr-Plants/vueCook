@@ -39,7 +39,8 @@
 <script>
   // 一共有两张注册方法,这是全局注册
   Vue.component('basic-button', {
-    template: `<button @click="childClick">click {{title}} {{count}}次</button>`,
+    template: `
+      <button @click="childClick">click {{title}} {{count}}次</button>`,
     // data必须是一个函数，可以保证每个实例返回的都是独立的数据对象，使组件之间互不影响
     data() {
       return {
@@ -62,7 +63,7 @@
       <strong>Error！</strong>
       <slot></slot>
       // 如果设置了多个slot该怎么搞？
-<!--      <slot></slot>-->
+<!--  <slot></slot>-->
     </div>
     `
   })

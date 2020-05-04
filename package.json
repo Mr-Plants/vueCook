@@ -1,0 +1,22 @@
+{
+  "name": "vuecook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "aaa.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mr-Plants/vueCook.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mr-Plants/vueCook/issues"
+  },
+  "homepage": "https://github.com/Mr-Plants/vueCook#readme",
+  "dependencies": {
+    "vue": "^2.6.11"
+  }
+}
