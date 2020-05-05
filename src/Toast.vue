@@ -1,6 +1,7 @@
 <template>
   <div class="overlay">
-
+    <h3>{{title}}</h3>
+    <p>{{message}}</p>
   </div>
 </template>
 
@@ -17,8 +18,11 @@
         default: ''
       }
     },
-    methods:{
-      show(){
+    methods: {
+      show() {
+
+      },
+      hide() {
 
       }
     }
