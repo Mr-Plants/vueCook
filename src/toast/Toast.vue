@@ -20,11 +20,17 @@
     },
     methods: {
       show() {
-
+        this.clear();
+        document.body.appendChild(this.$el);
       },
-      hide() {
-
+      clear() {
+        // 首次执行clear没有元素
+        if(this)document.body.removeChild(this.$el);
+        this.$destroy();
       }
+    },
+    beforeDestroy() {
+      // 清定时器
     }
   }
 </script>
