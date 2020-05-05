@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>toast test</title>
+</head>
+<body>
+<div id="app">
+  lalalal
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  // import Vue from '../node_modules/vue/dist/vue.esm.js';
+  // import App from "./App.vue";
+
+  import create from "./index";
+
+  new Vue({
+    el: '#app',
+    mounted() {
+const toast = create('toast')
+    }
+  })
+</script>
+</body>
+</html>
