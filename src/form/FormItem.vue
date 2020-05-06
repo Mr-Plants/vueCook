@@ -27,11 +27,16 @@
       }
     },
     mounted() {
-      // 初始化监听校验事件
+
       // todo 为什么一定要放到这个生命周期？
+      // 初始化监听校验事件，不健壮
       this.$on('validate', () => {
         this.validate();
       })
+
+      // this.form.$on('validate', () => {
+      //   this.validate();
+      // })
     },
     methods: {
       validate() {

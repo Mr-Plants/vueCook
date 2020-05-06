@@ -28,9 +28,9 @@
     },
     methods: {
       validate() {
+        // 执行到了这里
         const tasks = this.$children.filter(item => item.prop).map(item => item.validate());
         return Promise.all(tasks);
-        // todo 能否返回promise
       }
     }
   }
