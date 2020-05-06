@@ -19,6 +19,8 @@
       onInput(e) {
         //数据通过父组件传入，子组件通知父组件改变数据，符合vue单向数据流思想
         this.$emit('input', e.target.value);
+        // 触发父组件校验事件，父组件监听（不健壮）
+        this.$parent.$emit('validate');
       }
     }
   }

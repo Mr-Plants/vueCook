@@ -1,23 +1,37 @@
 <template>
   <div>
-    <FormInput v-model="userName"></FormInput>
-    <FormInput v-model="password" type="password"></FormInput>
+    <slot></slot>
   </div>
 </template>
 
 <script>
-  import FormInput from "./FormInput";
 
   export default {
     name: "Form",
-    data() {
+    // 子孙带跨代需要访问数据，可以通过provide访问form实例
+    provide() {
       return {
-        userName: 'tom',
-        password: ''
+        form: this
       }
     },
-    components: {
-      FormInput
+    data() {
+      return {}
+    },
+    props: {
+      model: {
+        type: Object,
+        require: true
+      },
+      rules: {
+        type: Object
+      }
+    },
+    methods: {
+      validate() {
+        const tasks = this.$children.filter(item => item.prop).map(item => item.validate());
+        return Promise.all(tasks);
+        // todo 能否返回promise
+      }
     }
   }
 </script>
