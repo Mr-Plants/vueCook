@@ -20,6 +20,9 @@
 
     <h2>router</h2>
     <RouterTest></RouterTest>
+
+    <h2>store</h2>
+    <StoreTest></StoreTest>
   </div>
 </template>
 
@@ -29,6 +32,7 @@
   import FormItem from "./form/FormItem";
   import FormInput from "./form/FormInput";
   import RouterTest from "./my-router/RouterTest";
+  import StoreTest from "./my-store/StoreTest";
 
   export default {
     name: 'App',
@@ -78,7 +82,8 @@
       Form,
       FormItem,
       FormInput,
-      RouterTest
+      RouterTest,
+      StoreTest
     }
   }
 </script>
