@@ -6,9 +6,13 @@
 </template>
 
 <script>
+  import emittet from "../mixin/emittet";
+
   export default {
     inheritAttrs: false,  // 避免外层容器继承其他属性
+    mixins: [emittet],
     name: "FormInput",
+    componentName: "FormInput",
     inject: ['form'],
     props: {
       value: {
@@ -20,9 +24,10 @@
       onInput(e) {
         //数据通过父组件传入，子组件通知父组件改变数据，符合vue单向数据流思想
         this.$emit('input', e.target.value);
+
+        this.dispatch('FormItem','validate')
         // 触发父组件校验事件，父组件监听（不健壮）
-        this.$parent.$emit('validate');
-        console.log(this.$parent.$options.componentName)
+        // this.$parent.$emit('validate');
         // 直接让表单实例触发校验事件
         // this.form.$emit('validate');
       }

@@ -12,6 +12,8 @@
 
   export default {
     name: "FormItem",
+    // 使用自定义option，尽量不取vue私有属性（$options._componentTag）
+    componentName: "FormItem",
     // 注入后可以拿到form实例
     inject: ['form'],
     props: {
@@ -29,7 +31,7 @@
     mounted() {
 
       // todo 为什么一定要放到这个生命周期？
-      // 初始化监听校验事件，不健壮
+      // 初始化监听校验事件
       this.$on('validate', () => {
         this.validate();
       })
@@ -50,7 +52,7 @@
           [this.prop]: value
         }
         const schema = new Schema(desc);
-        // 返回一个promise<boolean>
+        // return promise<Object>
         return schema.validate(source, err => {
           if (err) {
             this.errorMessage = err[0].message;
