@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import emittet from "../mixin/emittet";
+  import emittet from "../mixins/emittet";
 
   export default {
     inheritAttrs: false,  // 避免外层容器继承其他属性

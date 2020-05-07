@@ -21,7 +21,9 @@ export default {
         }
       }
       // 走到这里，parent只能是自己或者已经找到的
-      parent.$emit.apply(event, params);
+      // 需要将this指向parent
+      // parent.$emit.call(parent, event, params);
+      parent.$emit(event, params);
     }
   }
 }
