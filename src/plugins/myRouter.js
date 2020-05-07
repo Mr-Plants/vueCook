@@ -60,7 +60,6 @@ export default class MyRouter {
   }
 
   createComponents() {
-    // const that = this;
     Vue.component('router-link', {
       props: {
         to: String
