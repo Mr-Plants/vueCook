@@ -55,7 +55,6 @@ export default class MyRouter {
       this.onHashChange();
     });
     window.addEventListener('load', () => {
-      // todo 此处this指向哪里，是否需要bind
       this.onHashChange();
     })
   }
@@ -79,6 +78,7 @@ export default class MyRouter {
     })
 
     Vue.component('router-view', {
+      // 使用箭头函数使this指向router实例
       render: (h) => {
         const activeComponent = this.routeMap[this.app.currentRoute].component;
         return h(activeComponent);
