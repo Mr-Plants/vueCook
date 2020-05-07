@@ -19,6 +19,7 @@
     </Form>
 
     <h2>router</h2>
+    <RouterTest></RouterTest>
   </div>
 </template>
 
@@ -27,6 +28,7 @@
   import {zenToast} from "./toast/toast";
   import FormItem from "./form/FormItem";
   import FormInput from "./form/FormInput";
+  import RouterTest from "./my-router/RouterTest";
 
   export default {
     name: 'App',
@@ -75,7 +77,8 @@
     components: {
       Form,
       FormItem,
-      FormInput
+      FormInput,
+      RouterTest
     }
   }
 </script>
