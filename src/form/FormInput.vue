@@ -22,6 +22,7 @@
         this.$emit('input', e.target.value);
         // 触发父组件校验事件，父组件监听（不健壮）
         this.$parent.$emit('validate');
+        console.log(this.$parent.$options.componentName)
         // 直接让表单实例触发校验事件
         // this.form.$emit('validate');
       }
