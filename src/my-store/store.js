@@ -16,6 +16,7 @@ export default new myStore.Store({
     asyncCountAdd({commit}, params) {
       return new Promise((resolve) => {
         setTimeout(() => {
+          console.log(this)
           commit('countAdd', params);
           resolve('ok');
         }, 1000)

@@ -18,7 +18,7 @@ class Store {
    */
   commit = (mutationType, params) => {
     // 取除mutation映射的方法，并执行
-    // todo 当使用dispatch调用commit时this指向有问题
+    // 当使用dispatch调用commit时this指向有问题，指向了undefined，使用剪头函数修正
     const mutation = this.mutations[mutationType];
     mutation(this.state, params);
   }

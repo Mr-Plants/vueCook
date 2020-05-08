@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue defineProperty</title>
+</head>
+<body>
+
+<script src="myVue.js"></script>
+<script>
+
+  const app = new MyVue({
+    data: {
+      foo: 'foo',
+      bar: {
+        name: 'bar',
+        age: 23
+      }
+    }
+  })
+
+  app.foo = 'noop';
+  console.log(app.foo);
+</script>
+</body>
+</html>
