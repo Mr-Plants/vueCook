@@ -67,14 +67,20 @@ class MyVue {
   }
 }
 
-// 收集watcher，统一管理某个key的watcher
-// 典型的发布订阅模式
+
+
+/**
+ * 收集watcher，统一管理某个key的watcher
+ * todo 典型的发布订阅模式
+ * 当有人订阅时就将订阅者塞入订阅者队列
+ * 发布时就通知所有订阅者更新
+ */
 class Dep {
   // 当前操作的watcher实例
   static target;
 
   constructor() {
-    this.dep = [];
+    this.watchers = [];
   }
 
   /**
@@ -82,14 +88,14 @@ class Dep {
    * @param watcher
    */
   addDep(watcher) {
-    this.dep.push(watcher);
+    this.watchers.push(watcher);
   }
 
   /**
    * 通知watcher数据更新了
    */
   notify() {
-    this.dep.forEach(watcher => {
+    this.watchers.forEach(watcher => {
       watcher.update();
     })
   }
