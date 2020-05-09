@@ -8,7 +8,7 @@ class Compile {
     this.el = document.querySelector(el);
     this.fragment = this.dom2fragment();
 
-    this.compile();
+    this.compile(this.fragment.childNodes);
   }
 
   /**
@@ -26,9 +26,28 @@ class Compile {
   }
 
   /**
-   *
+   * 将vue模版转换为html模版
+   * @param nodes 类数组
    */
-  compile() {
+  compile(nodes) {
+    Array.from(nodes).forEach(node => {
+      if (node.nodeType === 1) {
+        // dom标签
+        console.log('dom标签' + node.nodeName)
+      } else if (this.isInterpolation(node)) {
+        console.log('插值表达式' + node.textContent);
+      }
+      // 递归
+      node.childNodes.length > 0 && this.compile(node.childNodes)
+    })
+  }
 
+  /**
+   * 返回一个节点是否是包含花胡子的文本节点
+   * @param node
+   * @returns {boolean}
+   */
+  isInterpolation(node) {
+    return node.nodeType === 3 && /\{\{(.*)\}\}/.test(node.textContent)
   }
 }

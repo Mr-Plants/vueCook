@@ -3,8 +3,10 @@ class MyVue {
     // 将实例属性设置为$开头
     this.$options = options;
     this.$data = options.data;
+    this.$el = options.el;
     // 创建响应式数据
     this.observe(this.$data);
+    const compile = new Compile(this, this.$el);
   }
 
   /**
@@ -66,7 +68,6 @@ class MyVue {
     this.observe(val);
   }
 }
-
 
 
 /**

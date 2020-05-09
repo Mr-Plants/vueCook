@@ -5,11 +5,18 @@
   <title>vue defineProperty</title>
 </head>
 <body>
+<div id="app">
+  <h1>{{foo}}</h1>
+  {{bar.name}}
+  <span>{{bar.age}}</span>
+</div>
 
+<script src="compile.js"></script>
 <script src="myVue.js"></script>
 <script>
 
   const app = new MyVue({
+    el: '#app',
     data: {
       foo: 'foo',
       bar: {
