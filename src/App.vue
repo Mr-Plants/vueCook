@@ -38,11 +38,12 @@
     name: 'App',
     methods: {
       showToast() {
-        zenToast({
-          title: '哈哈哈',
-          message: 'wulalallala'
-        });
-        zenToast('妙啊')
+        setInterval(() => {
+          zenToast({
+            closeOnClick: true,
+            message: Math.random()
+          })
+        }, 1000)
       },
       onLogin() {
         this.$refs.loginForm.validate().then(

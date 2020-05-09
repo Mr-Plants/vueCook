@@ -1,0 +1,129 @@
+.toast-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2099;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  touch-action: none;
+
+  .content {
+    background: rgba(0, 0, 0, .5);
+    //position: absolute;
+    //left: 50%;
+    //top: 18vh;
+    margin-top: 18vh;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    //transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .icon {
+      display: none;
+      margin-bottom: 12px;
+    }
+
+    .message {
+      color: #fff;
+      font-size: 14px;
+      line-height: 17px;
+      text-align: center;
+    }
+  }
+
+  .base {
+    border-radius: 4px;
+    padding: 12px 20px;
+
+    .message {
+      font-size: 13px;
+      line-height: 18px;
+      max-width: 190px;
+    }
+  }
+
+  .loading {
+    width: 128px;
+    height: 123px;
+
+    .icon {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      animation: rotate 0.9s linear infinite;
+      animation-timing-function: steps(12);
+      position: relative;
+
+      i {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        color: #fff;
+        font-size: 0;
+
+        &:before {
+          display: block;
+          width: 2px;
+          height: 25%;
+          margin: 0 auto;
+          background-color: currentColor;
+          border-radius: 40%;
+          content: '';
+        }
+      }
+    }
+  }
+
+  .success {
+    width: 128px;
+    //height: 123px;
+
+    .icon {
+      display: inline-block;
+      width: 54px;
+      height: 54px;
+      background: url("./icon_success.png") no-repeat;
+      background-size: 100% 100%;
+    }
+  }
+
+  .fail {
+    width: 128px;
+    //height: 123px;
+
+    .icon {
+      display: inline-block;
+      width: 54px;
+      height: 54px;
+      background: url("./icon_fail.png") no-repeat;
+      background-size: 100% 100%;
+    }
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+@for $i from 1 through 12 {
+  .loading .icon i:nth-of-type(#{$i}) {
+    transform: rotate($i * 30deg);
+    opacity: 1 - (0.75 / 12) * ($i - 1);
+  }
+}
+
+
