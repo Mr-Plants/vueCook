@@ -9,6 +9,7 @@ class Compile {
     this.fragment = this.dom2fragment();
 
     this.compile(this.fragment.childNodes);
+    this.el.appendChild(this.fragment);
   }
 
   /**
