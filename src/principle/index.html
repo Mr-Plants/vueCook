@@ -7,8 +7,15 @@
 <body>
 <div id="app">
   <h1>{{foo}}</h1>
-  <div>{{bar.age}}</div>
-  <div>{{bar.name}}</div>
+  <!--  dom多层嵌套-->
+  <div>
+    <span>
+      <i>{{foo}}</i>
+    </span>
+  </div>
+  <h1 w-text="baz"></h1>
+  <!--  <div>{{bar.age}}</div>-->
+  <!--  <div>{{bar.name}}</div>-->
 </div>
 
 <script src="compile.js"></script>
@@ -18,11 +25,12 @@
   const app = new MyVue({
     el: '#app',
     data: {
-      // foo: '这是测试的foo',
-      bar: {
-        name: '我的名字叫bar',
-        // age: 23
-      }
+      foo: '这是测试的foo',
+      baz: '这是测试的baz',
+      // bar: {
+      //   name: '我的名字叫bar',
+      //   age: 23
+      // }
     }
   })
 

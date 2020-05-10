@@ -33,7 +33,6 @@ class MyVue {
    * @param key
    */
   proxyData(key) {
-    console.log('666', this)
     Object.defineProperty(this, key, {
       get() {
         return this.$data[key];
@@ -56,7 +55,7 @@ class MyVue {
       get() {
         // console.log('get：' + key)
         // 当页面中需要用到key（获取key的值）的地方，就会被当成key的watcher放进dep
-        Dep.target && dep.addDep(Dep.target)
+        Dep.target && dep.addDep(Dep.target);
         return val;
       },
       set(v) {
@@ -113,13 +112,20 @@ class Dep {
  */
 class Watcher {
   // vm实例干嘛的？？？
-  constructor(vm, key) {
-    Dep.target = this;
+  constructor(vm, key, cb) {
+
     this.vm = vm;
     this.key = key;
+    this.cb = cb;
+
+    Dep.target = this;
+    // 读取一下key的值，触发getter，收集依赖
+    this.vm[this.key];
+    // 清空target指向
+    Dep.target = null;
   }
 
   update() {
-    console.log(this.key + '更新了！！！')
+    this.cb && this.cb();
   }
 }

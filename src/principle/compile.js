@@ -36,6 +36,7 @@ class Compile {
       if (node.nodeType === 1) {
         // dom标签
         console.log('dom标签' + node.nodeName)
+        this.compileElement(node)
       } else if (this.isInterpolation(node)) {
         console.log('插值表达式' + node.textContent);
         // 进行文本节点的内容替换
@@ -57,6 +58,25 @@ class Compile {
   }
 
   compileText(node, exp) {
-    node.textContent = this.vm[exp];
+    // todo vue中如何处理多层对象    $data['bar.name']=undefined
+    this.updateText(node, this.vm[exp]);
+    new Watcher(this.vm, exp, () => {
+      this.updateText(node, this.vm[exp]);
+    })
+  }
+
+  updateText(node, val) {
+    node.textContent = val;
+  }
+
+  compileElement(node) {
+    const attrs = node.attributes;
+    for (let i = 0; i < attrs.length; i++) {
+      const attrName = attrs[i].name;
+      // 仅仅兼容w-text指令
+      if (attrName.indexOf('w-') === 0) {
+        this.compileText(node, attrs[i].value)
+      }
+    }
   }
 }
