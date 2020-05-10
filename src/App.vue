@@ -38,12 +38,12 @@
     name: 'App',
     methods: {
       showToast() {
-        setInterval(() => {
-          zenToast({
-            closeOnClick: true,
-            message: Math.random()
-          })
-        }, 1000)
+        // setInterval(() => {
+        zenToast({
+          closeOnClick: true,
+          message: Math.random()
+        })
+        // }, 1000)
       },
       onLogin() {
         this.$refs.loginForm.validate().then(

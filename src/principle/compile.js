@@ -8,7 +8,7 @@ class Compile {
     this.el = document.querySelector(el);
     this.fragment = this.dom2fragment();
 
-    this.compile(this.fragment.childNodes);
+    this.compile(this.fragment);
     this.el.appendChild(this.fragment);
   }
 
@@ -30,16 +30,20 @@ class Compile {
    * 将vue模版转换为html模版
    * @param nodes 类数组
    */
-  compile(nodes) {
-    Array.from(nodes).forEach(node => {
+  compile(node) {
+    const childNodes = node.childNodes;
+    Array.from(childNodes).forEach(node => {
       if (node.nodeType === 1) {
         // dom标签
         console.log('dom标签' + node.nodeName)
       } else if (this.isInterpolation(node)) {
         console.log('插值表达式' + node.textContent);
+        // 进行文本节点的内容替换
+        this.compileText(node, RegExp.$1)
       }
       // 递归
-      node.childNodes.length > 0 && this.compile(node.childNodes)
+      node.childNodes.length > 0 && this.compile(node)
+      // node.hasChildNodes() && this.compile(node.childNodes)
     })
   }
 
@@ -50,5 +54,9 @@ class Compile {
    */
   isInterpolation(node) {
     return node.nodeType === 3 && /\{\{(.*)\}\}/.test(node.textContent)
+  }
+
+  compileText(node, exp) {
+    node.textContent = this.vm[exp];
   }
 }

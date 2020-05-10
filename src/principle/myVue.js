@@ -6,7 +6,7 @@ class MyVue {
     this.$el = options.el;
     // 创建响应式数据
     this.observe(this.$data);
-    const compile = new Compile(this, this.$el);
+    new Compile(this, this.$el);
   }
 
   /**
@@ -18,9 +18,12 @@ class MyVue {
       return
     }
 
+
     Object.keys(data).forEach(key => {
+      MyVue.depKey += key;
       this.defineReactive(data, key, data[key]);
       this.proxyData(key);
+      // this.observe(data[key])
     })
   }
 
@@ -30,6 +33,7 @@ class MyVue {
    * @param key
    */
   proxyData(key) {
+    console.log('666', this)
     Object.defineProperty(this, key, {
       get() {
         return this.$data[key];
@@ -50,7 +54,7 @@ class MyVue {
     const dep = new Dep();
     Object.defineProperty(obj, key, {
       get() {
-        console.log('get：' + key)
+        // console.log('get：' + key)
         // 当页面中需要用到key（获取key的值）的地方，就会被当成key的watcher放进dep
         Dep.target && dep.addDep(Dep.target)
         return val;
@@ -59,7 +63,7 @@ class MyVue {
         if (val !== v) {
           val = v;
           dep.notify();  // 值发生变化，通知观察者（watcher）更新
-          console.log('set：' + key);
+          // console.log('set：' + key);
         }
 
       }

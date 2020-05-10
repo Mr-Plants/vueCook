@@ -7,8 +7,8 @@
 <body>
 <div id="app">
   <h1>{{foo}}</h1>
-  {{bar.name}}
-  <span>{{bar.age}}</span>
+  <div>{{bar.age}}</div>
+  <div>{{bar.name}}</div>
 </div>
 
 <script src="compile.js"></script>
@@ -18,16 +18,18 @@
   const app = new MyVue({
     el: '#app',
     data: {
-      foo: 'foo',
+      // foo: '这是测试的foo',
       bar: {
-        name: 'bar',
-        age: 23
+        name: '我的名字叫bar',
+        // age: 23
       }
     }
   })
 
-  app.foo = 'noop';
-  console.log(app.foo);
+  // app.foo = 'noop';
+  // console.log(app);
+  // app.bar.name = '2333'
+  // console.log(app.bar.name);
 </script>
 </body>
 </html>
